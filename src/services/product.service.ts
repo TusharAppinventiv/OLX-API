@@ -27,7 +27,7 @@ class ProductService {
   }
 
   async getProduct(productId: number): Promise<Product | null> {
-    // Implementation for getting product details
+    // Implementation for getting product details;
     const product = await Product.findByPk(productId);
     return product;
   }
