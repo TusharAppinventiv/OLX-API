@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Tusharvatsa44$$",
+    "database": "OLX",
+    "host": "localhost",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "your_test_username",
+    "password": "your_test_password",
+    "database": "your_test_database",
+    "host": "localhost",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "mysql",
+    "operatorsAliases": 0
+  }
+}
