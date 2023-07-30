@@ -1,1 +1,1 @@
-Hello
+Migration Seeds in the util folder
