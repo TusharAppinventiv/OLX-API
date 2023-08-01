@@ -1,14 +1,17 @@
 // controllers/categoriesController.ts
 import { Request, Response } from 'express';
+import {getAllCategoriesFromService} from '../services/categories.service'
 import * as categoryService from '../services/categories.service';
 
-export const getCategories = async (req: Request, res: Response) => {
+export const getAllCategories = async (req: Request, res: Response) => {
   try {
-    const categories = await categoryService.getAllCategories();
-    return res.status(200).json(categories);
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const pageSize = parseInt(req.query.pageSize as string, 10) || 10; // You can set the default page size here
+
+    const categories = await getAllCategoriesFromService(page, pageSize);
+    res.status(200).json(categories);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ message: 'Failed to get categories' });
   }
 };
 
@@ -23,3 +26,4 @@ export const createCategory = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+
