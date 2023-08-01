@@ -1,17 +1,21 @@
 import { Request, Response } from 'express';
 import BidderService from '../services/bid.service';
+import AuthenticatedRequest from '../middlewares/expressTypes';
 
 const bidderService = new BidderService();
 
-export async function placeBid(req: Request, res: Response): Promise<void> {
-  try {
-    const { userId, productId, bidAmount } = req.body;
-    await bidderService.placeBid(userId, productId, bidAmount);
-    res.status(201).json({ message: 'Bid placed successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to place bid' });
-  }
-}
+export const placeBid = async (req: AuthenticatedRequest, res: Response) => {
+    const { productId, bidAmount } = req.body;
+    const userId = req.userId; // User ID extracted from the JWT token by the authMiddleware
+    
+    try {
+      await bidderService.placeBid(userId, productId, bidAmount);
+      return res.status(201).json({ message: 'Bid placed successfully' });
+    } catch (error) {
+      console.error('Error placing bid:', error);
+      return res.status(500).json({ error: error.message });
+    }
+  };
 
 export async function sellToHighestBidder(req: Request, res: Response): Promise<void> {
   try {

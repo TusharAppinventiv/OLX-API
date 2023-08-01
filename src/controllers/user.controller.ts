@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs';
 import UserService from '../services/user.service';
 import loginService from '../services/login.service';
 import redisClient from '../utils/redis/redis';
-
   const registerUser = async (req: Request, res: Response) => {
   const {
     id,
