@@ -26,11 +26,18 @@ class ProductService {
     return product;
   }
 
-  async getProduct(productId: number): Promise<Product | null> {
-    // Implementation for getting product details;
-    const product = await Product.findByPk(productId);
-    return product;
+  async getProducts(page: number, pageSize: number): Promise<Product[]> {
+    const offset = (page - 1) * pageSize;
+  
+    // Implementation for getting paginated products;
+    const products = await Product.findAll({
+      limit: pageSize,
+      offset: offset,
+    });
+  
+    return products;
   }
+
 }
 
-export default ProductService;
+export default ProductService
