@@ -3,9 +3,14 @@ import { Product } from '../models/products.model';
 
 class BidderService {
   async placeBid(userId: number, productId: number, bidAmount: number): Promise<void> {
-    await Bidder.create({ user_id: userId, product_id: productId, bid_amount: bidAmount });
+    try {
+      await Bidder.create({ user_id: userId, product_id: productId, bid_amount: bidAmount });
+    } catch (error){
+      console.log("hello");
+      throw new Error('Error placing bid');
+    }
   }
-
+  
   async sellToHighestBidder(productId: number): Promise<number | null> {
     const highestBidder = await Bidder.findOne({
       where: { product_id: productId },
