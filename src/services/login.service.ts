@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/user.model';
+import dotenv from 'dotenv';
 
-const SECRET_KEY = 'your_secret_key'; 
+// Load the environment variables from .env file
+dotenv.config();
 
 const loginService = async (email: string, password: string): Promise<string | null> => {
   // Find the user by their email
@@ -17,7 +19,12 @@ const loginService = async (email: string, password: string): Promise<string | n
   }
 
   // Generate and return the JWT token
-  const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '10h' });
+  console.log(process.env.SECRET_KEY)
+console.log(process.env.EXPIRES_IN)
+  const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: process.env.EXPIRES_IN });
+  console.log(process.env.SECRET_KEY)
+//   console.log(expiresIn  =process.env.EXPIRES_IN);
+
   return token;
 };
 
