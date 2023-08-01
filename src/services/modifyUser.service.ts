@@ -29,22 +29,23 @@ const updateUserById = async (
   }
 
   // Update the user's fields
-  user.username = username || user.username;
+  user.username = username ?? user.username;
   if (password) {
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
   }
-  user.address = address || user.address;
-  user.profile_photo = profile_photo || user.profile_photo;
-  user.mobNumber = mobNumber || user.mobNumber;
-  user.gender = gender || user.gender;
-  user.dob = dob || user.dob;
-  user.firstName = firstName || user.firstName;
-  user.lastName = lastName || user.lastName;
+  user.address = address ?? user.address;
+  user.profile_photo = profile_photo ?? user.profile_photo;
+  user.mobNumber = mobNumber ?? user.mobNumber;
+  user.gender = gender ?? user.gender;
+  user.dob = dob ?? user.dob;
+  user.firstName = firstName ?? user.firstName;
+  user.lastName = lastName ?? user.lastName;
 
   await user.save();
 
   return user;
-};
+}
+
 
 export { findUserByUsername, deleteUserById, updateUserById };
