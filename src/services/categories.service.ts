@@ -1,15 +1,24 @@
-// services/categoryService.ts
 import Category from '../models/category.model';
 
-export const getAllCategories = async () => {
+// categoryService.ts
+ const getAllCategoriesFromService = async (page: number, pageSize: number) => {
   try {
-    return await Category.findAll();
+    // Calculate the offset based on the page number and page size
+    const offset = (page - 1) * pageSize;
+
+    // Implementation for getting all categories with pagination
+    return await Category.findAll({
+      offset,
+      limit: pageSize,
+    });
   } catch (error) {
     throw new Error('Error retrieving categories');
   }
 };
 
-export const createNewCategory = async (categoryData: any) => {
+
+
+ const createNewCategory = async (categoryData: any) => {
   try {
     return await Category.create({
       ...categoryData,
@@ -20,3 +29,5 @@ export const createNewCategory = async (categoryData: any) => {
     throw new Error('Error creating category');
   }
 };
+
+export{getAllCategoriesFromService,createNewCategory};
