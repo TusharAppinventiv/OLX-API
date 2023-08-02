@@ -2,7 +2,7 @@
 import express from 'express';
 import { sequelize } from './utils/database/database';
 import userRoutes from './routes/user.routes';
-import {redFun} from '../src/utils/redis/redis'
+import {redFun} from './utils/redis/redis'
 import categoriesRoutes from './routes/categories.routes';
 import productRoutes from './routes/product.routes'
 import bidderRoutes from './routes/bidder.routes';
