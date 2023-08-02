@@ -51,11 +51,16 @@ export async function getHighestBidForProduct(req: Request, res: Response): Prom
   }
 }
 
-export async function getAllBids(req: Request, res: Response): Promise<void> {
+export async function getAllBidsController(req: Request<{}, {}, {}, { page?: string; pageSize?: string }>, res: Response): Promise<void> {
   try {
-    const allBids = await bidderService.getAllBids();
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const pageSize = parseInt(req.query.pageSize as string, 10) || 10; // You can set the default page size here
+
+    const allBids = await bidderService.getAllBids(page, pageSize);
     res.status(200).json(allBids);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch all bids' });
   }
 }
+
+
