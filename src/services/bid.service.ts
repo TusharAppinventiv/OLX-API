@@ -6,7 +6,7 @@ class BidderService {
     try {
       await Bidder.create({ user_id: userId, product_id: productId, bid_amount: bidAmount });
     } catch (error){
-      console.log("hello");
+      console.log("hello")
       throw new Error('Error placing bid');
     }
   }
@@ -46,10 +46,14 @@ class BidderService {
     return highestBid;
   }
 
-  async getAllBids(): Promise<Bidder[]> {
-    const allBids = await Bidder.findAll();
+   async  getAllBids(page: number, pageSize: number): Promise<Bidder[]> {
+    const allBids = await Bidder.findAll({
+      offset: (page - 1) * pageSize,
+      limit: pageSize,
+    });
     return allBids;
   }
+  
 }
 
 export default BidderService;
