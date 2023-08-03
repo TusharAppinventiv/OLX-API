@@ -5,6 +5,7 @@ import ProductService from '../services/product.service';
 const productService = new ProductService();
 
 class ProductController {
+
   // Implementation for adding a product (same as before)
   async addProduct(req: Request, res: Response) {
     try {
@@ -49,20 +50,18 @@ class ProductController {
     }
 }
 
-  async getProduct(req: Request, res: Response) {
+getProducts = async (req: Request, res: Response) => {
+    const pageNumber = parseInt(req.query.pageNumber as string) || 1;
+    const pageSize = parseInt(req.query.pageSize as string) || 10;
+  
     try {
-      const productId = parseInt(req.params.id, 10);
-      const product = await productService.getProduct(productId);
-
-      if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
-      }
-
-      res.status(200).json(product);
+      const products = await productService.getProducts(pageNumber, pageSize);
+      return res.status(200).json(products);
     } catch (error) {
-      res.status(500).json({ message: 'Failed to get product details' });
+      console.error('Error fetching products:', error);
+      return res.status(500).json({ error: 'Internal server error' });
     }
-  }
+  };
 }
 
 export default ProductController;

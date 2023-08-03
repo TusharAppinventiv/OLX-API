@@ -12,7 +12,8 @@ interface ProductAttributes {
   address: string;
   user_id: number;
   sold : boolean;
-  buyer_id : number 
+  buyer_id : number;
+  base_price : number;
 }
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
@@ -26,7 +27,7 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes> implem
   public user_id!: number; 
   public sold!: boolean; 
   public buyer_id!: number | null; 
-
+  public base_price !: number;
   public readonly bidding?: Bidding[];
   public readonly category?: Category;
   public readonly user?: User;
@@ -67,6 +68,10 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    base_price:{
+      type: DataTypes.INTEGER,
+      allowNull : false
+    }
     // Define other attributes and their data types here
   },
   {
